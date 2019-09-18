@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            function image(ind, img)
+            {
+                document.images[ind].src = img;
+            }
+        </script>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td><img src = "image1.png"></td>
+                <td><img src = "image1.png"></td>
+                <td><img src = "image1.png"></td>
+            </tr>
+            <tr>
+                    <td align = "center"><input type = "button" value = "apple" onclick="image(0,'apple.jpg')"/></td>
+                    <td align = "center"><input type = "button" value = "ball" onclick="image(1,'ball.jpg')"/></td>
+                    <td align = "center"><input type = "button" value = "cat" onclick="image(2,'cat.jpg')"/></td>
+            </tr>
+        </table>
+        
+    </body>
+</html>
