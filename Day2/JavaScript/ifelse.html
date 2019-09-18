@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            var a = confirm("Do u want to continue");
+            
+            function add(a,b)
+            {
+                var a;
+                var b;
+                alert(`${a} + ${b} = ${a + b}`);
+                c = parseInt(a) + parseInt(b);
+                return c;
+            }
+
+            if(a == true)
+            {
+                var x = parseInt(prompt("Enter 1st number"));
+                var y = parseInt(prompt("Enter 2st number"));
+                add(x,y);
+            }
+            else
+            {
+                display();
+            }
+
+            function display()
+            {
+                var d = new Date();
+                if(d.getHours() >= 12)
+                {alert("Good Afternoon", add(4,5))}
+                else if(d.getHours() >= 16)
+                {alert("Good Evening")}
+                else
+                {alert("Good Morning")}
+            }
+        </script>
+    </head>
+    <body>
+        <input type="button" value="addNumber" onclick="add(4,5)">
+    </body>
+</html>

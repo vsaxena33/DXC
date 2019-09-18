@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>Registration Form</title>
+    </head>
+    <body bgcolor="black" text="white">
+        <h2><center>Registration Form</center></h2>
+        <form action="success.html">
+            <table cellspaning="10" align="center">
+                <tr>
+                    <td>User Name:</td>
+                    <td><input type="text" name="userName" id="userName" /></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type="password" name="password" id="password" /></td>
+                </tr>
+                <tr>
+                    <td>Confirm Password:</td>
+                    <td><input type="password" name="confirmPassword" id="confirmPassword" /></td>
+                </tr>
+                <tr>
+                    <td>Full Name:</td>
+                    <td><input type="text" name="fullName" id="fullName" /></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="email" name="email" id="email" /></td>
+                </tr>
+                <tr>
+                    <td>Ph Number:</td>
+                    <td><input type="text" name="phNumber" id="phNumber" /></td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>
+                        <input type="radio" name="gender" id="gender" value="male">Male
+                        <input type="radio" name="gender" id="gender" value="female">Female
+                        <input type="radio" name="gender" id="gender" value="Othes">Others
+                    </td>
+                </tr>
+                <tr>
+                    <td>Qualification</td>
+                    <td>
+                        <select name="qualification" id="qualification">
+                            <option value="---">Select</option>
+                            <option value="B.Tech">B.Tech</option>
+                            <option value="B.Com">B.Com</option>
+                            <option value="MBBS">MBBS</option>
+                            <option value="BA">BA</option>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Alert By:</td>
+                    <td>
+                        <input type="checkbox" name="alertBy" id="alertBy" value="mobile">Mobile
+                        <input type="checkbox" name="alertBy" id="alertBy" value="email">Email
+                        <input type="checkbox" name="alertBy" id="alertBy" value="letter">Letter
+                    </td>
+                </tr>
+                <tr>
+                    <td>Upload File</td>
+                    <td>
+                        <input type="file" name="a" id="a" />
+                        <input type="hidden" name="b" id="b" value="DXC"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center"><input type="submit" value="Go" /></td>
+                    <td align="center"><input type="reset" value="Clear" /></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

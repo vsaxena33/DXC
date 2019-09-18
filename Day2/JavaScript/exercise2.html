@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <script type = "text/javascript">
+            var Bill = prompt("Enter the Bill Amount");
+            var today = new Date();
+            var finalDate = new Date();
+            finalDate.setMonth(7, 15);
+            alert(today);
+            alert(finalDate);
+            if(finalDate > today)
+            {
+                var days = 1000*60*60*24;
+                var daysLeft = (lastDate - today)/days;
+                alert("Days remaining " + daysLeft + " for payment.");
+                alert("Ammount to be paid: " + parseInt(Bill));
+            }
+            else
+            {
+                var days = 1000*60*60*24;
+                var daysPassed = (today - finalDate)/days;
+                alert("Days passed: " + daysPassed);
+                amount = parseInt(daysPassed*50) + parseInt(Bill);
+                alert("Amount to be paid: " + amount);
+            }
+        </script>
+    </head>
+    <body></body>
+</html>
