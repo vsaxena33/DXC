@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            function actionform()
+            {
+                username = document.getElementById("userName").value;
+                password = document.getElementById("password").value;
+                if(username == 0)
+                {
+                    var div1 = document.getElementById("div1");
+                    div1.innerHTML = "<font color = red>username is mandatory</font>"
+                }
+                if(password == 0)
+                {
+                    var div2 = document.getElementById("div2");
+                    div2.innerHTML = "<font color = green>password is mandatory</font>"
+                }
+                else if(password.length < 6 || password.length > 12)
+                {
+                    var div2 = document.getElementById("div2");
+                    div2.innerHTML = "<font color = green>Password should have 6-12 character</font>"
+                }
+                else if(password.charAt(0) != "A")
+                {
+                    var div2 = document.getElementById("div2");
+                    div2.innerHTML = "<font color = green>Password should start from A</font>"
+                }
+                else
+                {
+                    document.write("Success");
+                }
+            }
+            
+        </script>
+    </head>
+    <body>
+        <form">
+            <table>
+                <tr>
+                        <td>User Name:</td>
+                        <td><input type="text" name="userName" id="userName"/></td>
+                        <td><div id="div1"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type="password" name="password" id="password"/></td>
+                        <td><div id="div2"></div></td>
+                    </tr>
+                        <td align="center"><input type="button" value="Go" onclick="actionform()" /></td>
+                        <td align="center"><input type="reset" value="Clear" /></td>
+                    </tr>
+            </table>
+        </form>
+    </body>
+</html>
