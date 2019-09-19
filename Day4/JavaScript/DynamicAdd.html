@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Dynamic Adding</title>
+        <script type="text/javascript">
+        var NumOfRow = 1;
+            function DynAdd()
+            {
+                NumOfRow++;
+                var MyDiv = document.getElementById("Div1");
+                var newDiv = document.createElement("div");
+                newDiv.setAttribute("id", "Div" + NumOfRow);
+                var newSpan = document.createElement("span");
+                newSpan.innerHTML = "Text ";
+                var newtxt = document.createElement("input");
+                newtxt.type = "text";
+                newtxt.setAttribute("id", "txt" + NumOfRow);
+                var remove = document.createElement("input");
+                remove.type = "button"
+                remove.setAttribute("id", "remove" + NumOfRow);
+                remove.value = "Remove";
+                remove.onclick = function remove()
+                {
+                    var MyDiv = document.getElementById("Div1");
+                    MyDiv.removeChild(this.parentNode);
+                }
+                newDiv.appendChild(newSpan);
+                newDiv.appendChild(newtxt);
+                newDiv.appendChild(remove);
+                MyDiv.appendChild(newDiv);
+            }
+        </script>
+    </head>
+    <body>
+        <form>
+            <div id="Div1">
+                Add: <input type="button" id="Add" value="Add" onclick="DynAdd()"/>
+            </div>
+        </form>
+    </body>
+</html>
