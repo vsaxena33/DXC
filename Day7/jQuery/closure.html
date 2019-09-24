@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            function one(outer)
+            {
+                function inner(inner)
+                {
+                    return outer + inner;
+                }
+                return inner;
+            }
+            var a = one(5);
+            console.log(a(4));
+            console.dir(a);
+        </script>
+    </head>
+</html>
