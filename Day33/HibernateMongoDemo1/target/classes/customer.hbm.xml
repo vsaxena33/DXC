@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.dxc.model.Customer" table="CustomerData">
+	
+		<id name="custId" type="int" column="CId">
+			<generator class="assigned"/>
+		</id>
+
+		<property name="custName" column="CustName" />
+	
+		<property name="custAddress">
+			<column name="CAddress" />
+		</property>
+		
+			<property name="billAmount" />
+	</class>
+</hibernate-mapping>

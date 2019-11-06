@@ -1,0 +1,217 @@
+show dbs
+use DataBase_Name
+
+db.collection_Name.insert(objects)
+db.products.insert(
+   [
+     { _id: 11, item: "pencil", qty: 50, type: "no.2" },
+     { item: "pen", qty: 20 },
+     { item: "eraser", qty: 25 }
+   ]
+)
+
+db.collection_name.find()
+db.collection_name.count()
+
+show Collections
+db.customers.find({"address.state" : "Uttar Pradesh"}).pretty()
+____________________________________________________________________________________________________________
+db.customers.find({ $or : [{"address.city" : "Agra"}, {"address.city" : "Mumbai"}] }).pretty()
+{
+        "_id" : ObjectId("5db8193e602d342e952a9cfd"),
+        "customerName" : "Kalpana",
+        "customerId" : 9001,
+        "emailId" : "kalpana@gmail.com",
+        "bilAmount" : 3000,
+        "address" : {
+                "street" : "77, Near Sikandra",
+                "city" : "Agra",
+                "state" : "Uttar Pradesh"
+        },
+        "memberships" : [
+                "premium",
+                "normal"
+        ],
+        "balance" : 98000.62
+}
+{
+        "_id" : ObjectId("5db8193e602d342e952a9cff"),
+        "customerName" : "Mohit",
+        "customerId" : 3400,
+        "emailId" : "mohit@gmail.com",
+        "bilAmount" : 99,
+        "address" : {
+                "street" : "22, Opp Dairy",
+                "city" : "Mumbai",
+                "state" : "Maharashtra"
+        },
+        "memberships" : [
+                "premium",
+                "normal"
+        ],
+        "balance" : 1000
+}
+____________________________________________________________________________________________________________
+db.customers.find().forEach( function (data) {print("Customer name : " + data.customerName)})
+Customer name : Mohan
+Customer name : Lait
+Customer name : Kalpana
+Customer name : Rekha
+Customer name : Mohit
+____________________________________________________________________________________________________________
+db.newcustomers.aggregate([{$group : {_id : "$gender", OurCustomerDetails : {$sum : 1}}}])
+{ "_id" : "male", "OurCustomerDetails" : 3 }
+{ "_id" : "female", "OurCustomerDetails" : 2 }
+____________________________________________________________________________________________________________
+db.newcustomers.aggregate([{$group : {_id : "$gender", "Max Age" : {$max : "$age"}}}])
+{ "_id" : "female", "Max Age" : 34 }
+{ "_id" : "male", "Max Age" : 45 }
+____________________________________________________________________________________________________________
+db.newcustomers.aggregate([{$group : {_id : "$gender", "Min Age" : {$min : "$age"}}}])
+{ "_id" : "female", "Min Age" : 22 }
+{ "_id" : "male", "Min Age" : 23 }
+____________________________________________________________________________________________________________
+db.newcustomers.aggregate([{$group : {_id : "$gender", "Max Balance" : {$max : "$balance"}}}])
+{ "_id" : "female", "Max Balance" : 98000.62 }
+{ "_id" : "male", "Max Balance" : 78000.67 }
+____________________________________________________________________________________________________________
+db.customers.find({ 
+        $or : [
+                {$and : [{type : "WebUser"},{city : "Pune"}]},
+                {$and : [{type : "User"},{city : "Mumbai"}]}
+              ]}).pretty()
+
+Can also be written as,
+
+db.customers.find({
+    type : {"$in" : ["WebUser", "User"]},
+    city : {"$in" : ["Pune", "Mumbai"]}
+}).pretty()
+____________________________________________________________________________________________________________
+db.student.updateOne({_id : 5, 
+    grades : { $elemMatch : {grade : {$lte : 90}, mean : {$gt : 80}}}},
+    {$set : {"grades.$.std" : 6}
+})
+____________________________________________________________________________________________________________
+Wildcards : 
+        /a/ same as %a%
+        /^M/ same as M%
+        /a$/ same as %a
+eg : db.newcustomers.find({customerName : /^R/})
+
+REGEX : 
+        a.b => can be any text but returns true if it has the pattern __a_b___
+        a*b => can be any text but returns true if it has the pattern __a__b__
+
+        ^a.b => can be any text but returns true if it has the pattern a_b___
+        ^a*b => can be any text but returns true if it has the pattern a__b__
+
+        a.b$ => can be any text but returns true if it has the pattern __a_b
+        a*b$ => can be any text but returns true if it has the pattern __a__b
+____________________________________________________________________________________________________________
+db.newcustomers.find({customerName : 'Kalpana'}, {emailId : 1, _id : 0}).limit(1)
+        Only kalpana's email ID will be displayed limited to the first entry
+
+____________________________________________________________________________________________________________
+db.newcustomers.aggregate({$sort : {dob : -1}}).forEach((data) => {print('\nCustomer Name : '+ data.customerName + '\nD.O.B : ' + data.dob)})
+
+or 
+
+Oldest to youngest : 
+db.newcustomers.find({}).sort({dob:-1}).forEach((data) => {print('\nCustomer Name : ' + data.customerName + '\nD.O.B : ' + data.dob)})
+
+Oldest : 
+db.newcustomers.find({}).sort({dob:-1}).limit(1).forEach((data) => {print('\nCustomer Name : ' + data.customerName + '\nD.O.B : ' + data.dob)})
+
+Youngest:
+db.newcustomers.find({}).sort({dob:1}).limit(1).forEach((data) => {print('\nCustomer Name : ' + data.customerName + '\nD.O.B : ' + data.dob)})
+
+____________________________________________________________________________________________________________
+Exporting mongo collections :
+
+        mongoexport -d customers -c todo -o customers.json
+        -d => DataBase_Name
+        -c => collection_Name
+
+        mongoexport -d dxcTechDB -c customers --type csv -f "empId,type,city" -o "customers.csv"
+
+Importing mongo collections : 
+
+        mongoimport -d dxcTechDB -c customers --file customers.json
+        mongoimport --type csv -d dxcTechDB -c customers --headerline --file customers.csv
+
+____________________________________________________________________________________________________________
+db.ceo.insert({name : 'Neha', company_id : db.info.find()[0]._id})
+        Get ID from another collection
+
+____________________________________________________________________________________________________________
+db.collection_Name.aggregate([{
+        $lookup:
+                {
+                        from: <collection to join>,
+                        localField: <field from the input documents>,
+                        foreignField: <field from the documents of the "from" collection>,
+                        as: <output array field>
+                }
+}])
+
+____________________________________________________________________________________________________________
+use usersDB
+
+db.usersData.insert([
+	{
+  "_id": ObjectId("45b83bda421238c76f5c1969"),
+  "name": "Tufail Ahmed",
+  "email": "tufailahmedkhan@gmail.com",
+  "country": "INDIA",
+  "dob": ISODate("1999-09-13T00:00:00.000Z")
+  }
+])
+
+db.usersPosts.insert([
+{
+  "user_id": ObjectId("45b83bda421238c76f5c1969"),
+  "date": ISODate("2016-09-05T03:05:00.123Z"),
+  "text": "Your bful eyes, I am in love all over again",
+  "rating" : "important"
+}
+])
+
+db.usersPosts.aggregate([
+  { "$match": { "rating": "important" } },
+  { "$sort": { "date": -1 } },
+  { "$limit": 2 },
+  { "$lookup": {
+    "localField": "user_id",
+    "from": "usersData",
+    "foreignField": "_id",
+    "as": "myinfo"
+  } },
+  { "$unwind": "$myinfo" },
+  { "$project": {
+    "text": 1,
+    "date": 1,
+    "myinfo.name": 1,
+    "myinfo.country": 1
+  } }
+]).pretty()
+
+==>     {   
+==>             "_id" : ObjectId("5dbaa308796e6d0a36e8841f"),
+==>             "date" : ISODate("2016-09-05T03:05:00.123Z"),
+==>             "text" : "Your bful eyes, I am in love all over again",
+==>             "myinfo" : {
+==>                     "name" : "Tufail Ahmed",
+==>                     "country" : "INDIA"
+==>             }
+==>     }
+
+____________________________________________________________________________________________________________
+db.banklist.aggregate([
+    {$group : {
+        _id : {CERT : "CERT"},
+        uniqueIds : {$addToSet: "$_id"},
+        count : {$sum : 1}
+    }},
+    {$match : { count : {"$gt" : 1}}}
+])
